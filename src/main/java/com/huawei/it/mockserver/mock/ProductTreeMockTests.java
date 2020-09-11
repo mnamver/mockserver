@@ -1,22 +1,38 @@
-package com.huawei.it.mockserver;
+package com.huawei.it.mockserver.mock;
 
-import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
+import org.mockserver.integration.ClientAndServer;
 import org.mockserver.matchers.MatchType;
 import org.mockserver.model.HttpStatusCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.Header.header;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.JsonBody.json;
 
+@Component
+public class ProductTreeMockTests {
 
-public class MockserverApplicationTests {
+    private static final Logger logger = LoggerFactory.getLogger(ProductTreeMockTests.class);
 
+    ClientAndServer mockServer = startClientAndServer(1080);
 
-    @Test
+    @PostConstruct
+    public void init(){
+        logger.info("start");
+        getProduct();
+        getApplication();
+        getService();
+    }
+
     public void getProduct(){
-        new MockServerClient("localhost", 1080)
+        mockServer
                 .when(
                         request()
                                 .withMethod("POST")
@@ -40,9 +56,8 @@ public class MockserverApplicationTests {
 
     }
 
-    @Test
     public void getApplication(){
-        new MockServerClient("localhost", 1080)
+        mockServer
                 .when(
                         request()
                                 .withMethod("GET")
@@ -67,9 +82,8 @@ public class MockserverApplicationTests {
     }
 
 
-    @Test
     public void getService(){
-        new MockServerClient("localhost", 1080)
+        mockServer
                 .when(
                         request()
                                 .withMethod("POST")

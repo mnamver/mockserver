@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -33,6 +33,12 @@
             <groupId>org.mock-server</groupId>
             <artifactId>mockserver-client-java</artifactId>
             <version>5.11.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.29</version>
         </dependency>
 
         <dependency>
@@ -52,27 +58,31 @@
         <plugins>
 
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
                 <groupId>org.mock-server</groupId>
                 <artifactId>mockserver-maven-plugin</artifactId>
                 <version>5.11.1</version>
                 <configuration>
                     <serverPort>1080</serverPort>
                     <logLevel>DEBUG</logLevel>
-                    <initializationClass>com.huawei.it.mockserver.MockserverApplicationTests</initializationClass>
                 </configuration>
                 <executions>
                     <execution>
                         <id>process-test-classes</id>
                         <phase>process-test-classes</phase>
                         <goals>
-                            <goal>start</goal>
+                            <goal>runForked</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>verify</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>stop</goal>
+                            <goal>stopForked</goal>
                         </goals>
                     </execution>
                 </executions>
