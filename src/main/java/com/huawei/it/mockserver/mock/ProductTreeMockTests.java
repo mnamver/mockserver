@@ -37,9 +37,6 @@ public class ProductTreeMockTests {
                         request()
                                 .withMethod("POST")
                                 .withPath("/msc/cmdb/v1/instances/product/query")
-                                .withHeaders(
-                                        header("Accept","application/json")
-                                )
                                 .withBody(json("{\"orderBy\":[],\"contentSelector\":[],\"condition\":{\"constraint\":[]}}",
                                         MatchType.STRICT))
                 )
@@ -62,11 +59,6 @@ public class ProductTreeMockTests {
                         request()
                                 .withMethod("GET")
                                 .withPath("/msc/cmdb/v1/instances/bizapplication/query")
-                                .withHeaders(
-                                        header("Accept","application/json")
-                                )
-                                .withBody(json("{\"condition\":{\"constraint\":[{\"simple\":{\"name\":\"productName\",\"operator\":\"equal\",\"value\":\"product1\"}}]}}" ,
-                                        MatchType.STRICT))
                 )
                 .respond(
                         response()
@@ -88,9 +80,6 @@ public class ProductTreeMockTests {
                         request()
                                 .withMethod("POST")
                                 .withPath("/msc/cmdb/v1/instances/bizservice/query")
-                                .withHeaders(
-                                        header("Accept","application/json")
-                                )
                                 .withBody(json("{\"condition\":{\"constraint\":[{\"simple\":{\"name\":\"appId\",\"operator\":\"equal\",\"value\":\"app1\"}}]}}" ,
                                         MatchType.STRICT))
                 )
